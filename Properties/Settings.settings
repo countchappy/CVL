@@ -1,0 +1,39 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CVL.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Registry_CVLKeyAddress" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">HKEY_CURRENT_USER\Software\CountChappy\CVL</Value>
+    </Setting>
+    <Setting Name="CVL_appdataDirectory" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">\CountChappy\CVL\</Value>
+    </Setting>
+    <Setting Name="CVLU_valheimInstallDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CVLU_backupDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CVLU_backupEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="CVLU_dedicatedServers_Names" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CVLU_dedicatedServers_Addresses" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CVLU_dedicatedServers_Ports" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Registry_SteamValheimApp" Type="System.String" Scope="User">
+      <Value Profile="(Default)">HKEY_CURRENT_USER\Software\Valve\Steam\Apps\892970</Value>
+    </Setting>
+    <Setting Name="Registry_SteamInstallDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">HKEY_CURRENT_USER\Software\Valve\Steam</Value>
+    </Setting>
+    <Setting Name="CVL_UpgradeFlag" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
