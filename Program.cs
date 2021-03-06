@@ -173,16 +173,18 @@ namespace CVL
 
 
 
-        public static void LaunchValheim(object sender, EventArgs e)
+        public static void LaunchValheim(Launcher l, int selectedIndex)
         {
             try
             {
-                launcher.ToggleLaunching();
                 if (SettingsManager.BackupEnabled)
                 {
-                    launcher.Write(Properties.Resources.info_BackupRunning);
+                    l.Write(Properties.Resources.info_BackupRunning);
                     BackupManager.RunBackups();
-                    launcher.WriteLine(Properties.Resources.keyword_Complete);
+                    l.WriteLine(Properties.Resources.keyword_Complete);
+                    l.Write(Properties.Resources.info_BackupsClearingOld);
+                    BackupManager.ClearOldBackups();
+                    l.WriteLine(Properties.Resources.keyword_Complete);
                 }
 
                 DirectoryInfo valheimInstallDirectoryInfo = new DirectoryInfo(SettingsManager.ValheimInstallDirectory);
@@ -201,12 +203,11 @@ namespace CVL
                     startInfo.UseShellExecute = true;
                     startInfo.WorkingDirectory = SettingsManager.ValheimInstallDirectory;
 
-                    int s = launcher.SelectedLaunchTo();
-                    if (s > 0)
+                    if (selectedIndex > 0)
                     {
                         startInfo.Arguments = string.Format("+connect {0}:{1}",
-                            SettingsManager.DedicatedServerAddresses.Values.ElementAt(s - 1),
-                            SettingsManager.DedicatedServerPorts.Values.ElementAt(s - 1)
+                            SettingsManager.DedicatedServerAddresses.Values.ElementAt(selectedIndex - 1),
+                            SettingsManager.DedicatedServerPorts.Values.ElementAt(selectedIndex - 1)
                         );
                     }
 
@@ -215,22 +216,21 @@ namespace CVL
                         if (Process.Start(startInfo) is Process)
                             Shutdown();
                         else
-                            launcher.WriteLine(Properties.Resources.err_LaunchValheimProcessFailed);
+                            l.WriteLine(Properties.Resources.err_LaunchValheimProcessFailed);
                     } catch (Exception error)
                     {
                         if (SentryEnabled) SentrySdk.CaptureException(error);
                         Console.WriteLine(error.Message);
-                        launcher.WriteLine(Properties.Resources.err_FailedLaunchValheim);
+                        l.WriteLine(Properties.Resources.err_FailedLaunchValheim);
                     }
                 } else
-                    launcher.WriteLine(Properties.Resources.err_LaunchValheimMissing);
+                    l.WriteLine(Properties.Resources.err_LaunchValheimMissing);
             } catch (Exception err)
             {
                 if (SentryEnabled) SentrySdk.CaptureException(err);
                 Console.WriteLine(err.Message);
-                launcher.WriteLine(Properties.Resources.err_FailedLaunchValheim);
+                l.WriteLine(Properties.Resources.err_FailedLaunchValheim);
             }
-            launcher.ToggleLaunching();
         }
 
         public static void Shutdown(int exitCode = 0)
@@ -240,6 +240,5 @@ namespace CVL
             else
                 Environment.Exit(exitCode);
         }
-
     }
 }

@@ -155,6 +155,10 @@
     <value>Running backup ... </value>
     <comment>Backup running message</comment>
   </data>
+  <data name="info_BackupsClearingOld" xml:space="preserve">
+    <value>Clearing backups more than one month old</value>
+    <comment>Clearing old backups message</comment>
+  </data>
   <data name="info_BackupsDisabled" xml:space="preserve">
     <value>Backups are disabled</value>
     <comment>Disabled backups message</comment>
