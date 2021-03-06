@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -23,14 +24,14 @@ namespace CVL.Forms
         private bool nl = true;
         public void WriteLine(string text)
         {
-            if (nl) textBoxLog.Text += string.Format("[{0}] ", DateTime.Now.ToLongTimeString());
-            textBoxLog.Text += string.Format("{0}\r\n", text);
+            if (nl) textBoxLog.Invoke((MethodInvoker)delegate { textBoxLog.Text += string.Format("[{0}] ", DateTime.Now.ToLongTimeString()); });
+            textBoxLog.Invoke((MethodInvoker)delegate { textBoxLog.Text += string.Format("{0}\r\n", text); });
             nl = true;
         }
         public void Write(string text)
         {
-            if (nl) textBoxLog.Text += string.Format("[{0}] ", DateTime.Now.ToLongTimeString());
-            textBoxLog.Text += text;
+            if (nl) textBoxLog.Invoke((MethodInvoker)delegate { textBoxLog.Text += string.Format("[{0}] ", DateTime.Now.ToLongTimeString()); });
+            textBoxLog.Invoke((MethodInvoker)delegate { textBoxLog.Text += text; });
             nl = false;
         }
 
@@ -45,11 +46,17 @@ namespace CVL.Forms
             LoadServerList();
         }
 
-        public int SelectedLaunchTo()
+        Thread launchValheimThread = null;
+        private void btnLaunch_Click(object sender, EventArgs e)
         {
-            return comboBox_LaunchTo.SelectedIndex;
+            int s = comboBox_LaunchTo.SelectedIndex;
+            if (launchValheimThread == null || !launchValheimThread.IsAlive)
+            {
+                launchValheimThread = new Thread(() => Program.LaunchValheim(this, s));
+                ToggleLaunching();
+                launchValheimThread.Start();
+            }
         }
-
         public void LoadServerList()
         {
             comboBox_LaunchTo.Items.Clear();
