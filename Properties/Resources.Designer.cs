@@ -154,6 +154,15 @@ namespace CVL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clearing backups more than one month old.
+        /// </summary>
+        internal static string info_BackupsClearingOld {
+            get {
+                return ResourceManager.GetString("info_BackupsClearingOld", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Backups are disabled.
         /// </summary>
         internal static string info_BackupsDisabled {

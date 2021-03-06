@@ -94,7 +94,7 @@ namespace CVL.Forms
             this.btnLaunch.Size = new System.Drawing.Size(320, 37);
             this.btnLaunch.TabIndex = 1;
             this.btnLaunch.Text = "Launch Valheim - Solo";
-            this.btnLaunch.Click += new System.EventHandler(Program.LaunchValheim);
+            this.btnLaunch.Click += new System.EventHandler(this.btnLaunch_Click);
             this.btnLaunch.UseVisualStyleBackColor = false;
             // 
             // btnSettings
