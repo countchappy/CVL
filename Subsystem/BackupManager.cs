@@ -11,17 +11,28 @@ namespace CVL.Subsystem
     class BackupManager
     {
 
-        private void ClearOldBackups()
+        public static bool ClearOldBackups()
         {
-            string pAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string pPrData = Properties.Settings.Default.CVLU_backupDirectory;
-            string bkDir = string.Format("{0}{1}\\Valheim Backups", pAppData, pPrData);
-            foreach (string file in Directory.GetFiles(bkDir))
+#if DEBUG
+            return true;
+#endif
+            try
             {
-                FileInfo fi = new FileInfo(file);
-                if (fi.LastAccessTime < DateTime.Now.AddMonths(-1))
-                    fi.Delete();
+                DirectoryInfo backupDirectory = new DirectoryInfo(SettingsManager.BackupDirectory);
+                foreach (FileInfo file in backupDirectory.GetFiles())
+                {
+                    if (file.LastAccessTime.AddMonths(1) < DateTime.Now)
+                    {
+                        file.Delete();
+                        return true;
+                    }
+                }
+            } catch (Exception e)
+            {
+                if (Program.SentryEnabled) Sentry.SentrySdk.CaptureException(e);
+                Console.WriteLine(e.Message);
             }
+            return false;
         }
 
         public static bool RunBackups()

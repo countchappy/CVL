@@ -182,6 +182,9 @@ namespace CVL
                     l.Write(Properties.Resources.info_BackupRunning);
                     BackupManager.RunBackups();
                     l.WriteLine(Properties.Resources.keyword_Complete);
+                    l.Write(Properties.Resources.info_BackupsClearingOld);
+                    BackupManager.ClearOldBackups();
+                    l.WriteLine(Properties.Resources.keyword_Complete);
                 }
 
                 DirectoryInfo valheimInstallDirectoryInfo = new DirectoryInfo(SettingsManager.ValheimInstallDirectory);
@@ -237,6 +240,5 @@ namespace CVL
             else
                 Environment.Exit(exitCode);
         }
-
     }
 }
